@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Толя Процик - Telegram Маркетинг</title>
+    <script src="https://unpkg.com/@max-im/bridge"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #000000;
+            color: #fff;
+            padding: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 20px;
+        }
+
+        /* Баннер */
+        .banner {
+            background: linear-gradient(135deg, #2d3561 0%, #1f2544 100%);
+            border-radius: 20px;
+            padding: 40px 25px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .banner h1 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .banner p {
+            font-size: 16px;
+            margin-bottom: 25px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .cta-button {
+            background: #ffc365;
+            color: #1a1a2e;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 195, 101, 0.4);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:active {
+            transform: scale(0.95);
+            box-shadow: 0 4px 15px rgba(255, 195, 101, 0.3);
+        }
+
+        /* Секции */
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding-left: 5px;
+        }
+
+        /* Горизонтальный скролл */
+        .scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            padding: 5px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Карточки */
+        .card {
+            flex: 0 0 calc(40% - 7.5px);
+            min-width: calc(40% - 7.5px);
+            aspect-ratio: 4/5;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            scroll-snap-align: start;
+            border: 3px solid #ffc365;
+            box-shadow: 0 4px 15px rgba(255, 195, 101, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .card:active {
+            transform: scale(0.95);
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+            padding: 15px;
+            color: #fff;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        /* Навигация между страницами */
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Страница контента */
+        .content-page {
+            padding-bottom: 30px;
+        }
+
+        .back-button {
+            background: rgba(255, 195, 101, 0.2);
+            color: #ffc365;
+            border: 2px solid #ffc365;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:active {
+            transform: scale(0.95);
+            background: rgba(255, 195, 101, 0.3);
+        }
+
+        .content-header {
+            margin-bottom: 25px;
+        }
+
+        .content-header h1 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .content-header .meta {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .content-image {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 3px solid #ffc365;
+            margin-bottom: 25px;
+        }
+
+        .content-body {
+            font-size: 16px;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+
+        .content-body p {
+            margin-bottom: 20px;
+        }
+
+        .content-body h2 {
+            font-size: 22px;
+            margin: 30px 0 15px;
+            color: #ffc365;
+            font-weight: 700;
+        }
+
+        .content-body ul, .content-body ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .content-body li {
+            margin-bottom: 10px;
+        }
+
+        .content-body strong {
+            color: #ffc365;
+            font-weight: 700;
+        }
+
+        /* Адаптация для маленьких экранов (iPhone SE) */
+        @media (max-width: 375px) {
+            .banner h1 {
+                font-size: 24px;
+            }
+
+            .banner p {
+                font-size: 14px;
+            }
+
+            .cta-button {
+                padding: 14px 32px;
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .card-title {
+                font-size: 12px;
+            }
+
+            .content-header h1 {
+                font-size: 22px;
+            }
+
+            .content-body {
+                font-size: 15px;
+            }
+
+            .content-body h2 {
+                font-size: 20px;
+            }
+        }
+
+        /* Адаптация для больших телефонов */
+        @media (min-width: 430px) {
+            .card {
+                flex: 0 0 calc(38% - 7.5px);
+                min-width: calc(38% - 7.5px);
+            }
+        }
+
+        /* Адаптация для планшетов */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 30px;
+            }
+
+            .banner {
+                padding: 50px 35px;
+            }
+
+            .banner h1 {
+                font-size: 32px;
+            }
+
+            .banner p {
+                font-size: 18px;
+            }
+
+            .card {
+                flex: 0 0 calc(30% - 10px);
+                min-width: calc(30% - 10px);
+            }
+
+            .section-title {
+                font-size: 26px;
+            }
+        }
+
+        /* Адаптация для альбомной ориентации */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .banner {
+                padding: 25px 20px;
+            }
+
+            .banner h1 {
+                font-size: 22px;
+                margin-bottom: 10px;
+            }
+
+            .banner p {
+                font-size: 14px;
+                margin-bottom: 15px;
+            }
+
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+
+            .section {
+                margin-bottom: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Главная страница -->
+    <div id="home-page" class="page active">
+        <div class="container">
+            <!-- Баннер -->
+            <div class="banner">
+                <h1>🚀 Воркшоп по Нейросетям</h1>
+                <p>Узнай, как использовать ChatGPT, Claude и другие AI для Telegram-маркетинга</p>
+                <button class="cta-button" onclick="openWorkshop()">Смотреть</button>
+            </div>
+
+            <!-- Полезные статьи -->
+            <div class="section">
+                <h2 class="section-title">Полезные статьи</h2>
+                <div class="scroll-container" id="articles">
+                    <!-- Карточки добавятся через JS -->
+                </div>
+            </div>
+
+            <!-- Кейсы -->
+            <div class="section">
+                <h2 class="section-title">Кейсы</h2>
+                <div class="scroll-container" id="cases">
+                    <!-- Карточки добавятся через JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Страницы контента (создаются динамически) -->
+    <div id="content-pages"></div>
+
+    <script>
+        // Инициализация MAX Bridge
+        let bridge;
+
+        async function initApp() {
+            try {
+                bridge = await MaxBridge.default.init();
+                console.log('MAX Bridge initialized');
+            } catch (error) {
+                console.error('Error initializing MAX Bridge:', error);
+            }
+
+            loadArticles();
+            loadCases();
+        }
+
+        // Данные для статей
+        const articles = [
+            {
+                id: 'article-1',
+                title: 'Как сделать так, чтобы нейросети перестали выдавать ерунду?',
+                image: 'https://optim.tildacdn.com/tild3264-3738-4930-b837-363338623662/-/resize/400x/-/format/webp/Gemini_Generated_Ima.png.webp',
+                imageContent: 'https://optim.tildacdn.com/tild3334-6166-4366-b438-306162616238/-/resize/886x/-/format/webp/photo_2026-02-11_183.jpeg.webp',
+                content: `
+                    <p>Почему-то есть мнение, если написать любой нейросети в самом начале "Ты такой-то специалист с 20-летним опытом…", то нейросеть будет работать хорошо🧐 А если написать, что опыт 100 лет, от этого прибавится опыта?😅</p>
+
+                    <p>⬆️Это всё херня, если честно… В нейросети важен: <strong>контекст + база знаний + промпт</strong>, причём промпт реально на последнем месте и играет незначительную роль</p>
+
+                    <p>Отсюда сразу скажу, что я против всяких "заготовок" промптов из интернета! Если нейросети дать контекст и базу знаний, то можно будет написать "напиши мне пост на тему нейросетей" – и она напишет крутой, не шаблонный пост</p>
+
+                    <p>Так вот – этот 20-100 летний опыт у нейросети берётся не потому, что мы ей так написали, а из тех знаний, которые мы ей дали:</p>
+
+                    <h2>БАЗА ЗНАНИЙ</h2>
+
+                    <p>Это может быть – эфиры, уроки, лид-магниты, подкасты, книги и тд… То есть нейросети нужно дать те знания, которыми ВЫ обладаете, чтобы она была на том же уровне</p>
+
+                    <p>Да хоть книгу по копирайтингу дать – тоже будет хорошо, главное не палиться, что вы её используете😅</p>
+
+                    <h2>КОНТЕКСТ</h2>
+
+                    <p>Это когда мы погружаем нейросеть в определённую ситуацию, давайте на том же примере копирайтера ⬇️</p>
+
+                    <p>
+                    – Для какой соцсети нам нужен пост (ВК/Тредс/Телеграм/Макс?)<br>
+                    – Какая цель этого поста (прогрев/продажа/призыв к действию)?<br>
+                    – Какой стиль написания текста нужно использовать (деловой/с юмором/с перчинкой/дружелюбный/или вообще скопировать ваш)?<br>
+                    – Откуда брать информацию для поста (ваша база знаний/интернет/контент конкурентов)?<br>
+                    – И тд…
+                    </p>
+
+                    <p>⬆️ Даже если взять вот это (а это далеко не всё), и загрузить в обычный ChatGPT, вы афигеете от результата</p>
+
+                    <p>По-этому я рекомендую:</p>
+
+                    <p><strong>1️⃣ Использовать только оригинальные нейросети</strong>, не каких-то ботов в телеграм, а те, которые в браузере открываются;</p>
+
+                    <p>Потому-что они будут запоминать каждый диалог с вами и у них будет сохраняться память и контекст… Боты в телеграм такое не умеют</p>
+
+                    <p><strong>2️⃣ Брать платные подписки на нейросетей</strong> – да это 2000-4000₽/месяц (одна-две нейросети), но если брать например самого дешёвого ассистента, которого тоже нужно обучать – это 10к/месяц… А ассистент-человек будет делать в 10 раз хуже и медленнее</p>
+
+                    <p><em>P.s скоро загружу видео на ютуб, там очень наглядно покажу что такое контекст и как он помогает</em></p>
+                `
+            },
+            {
+                id: 'article-2',
+                title: 'Посевы в 2026: полный гайд',
+                image: 'https://via.placeholder.com/400x500/1f2544/ffc365?text=Посевы',
+                content: `
+                    <h2>Что такое посевы</h2>
+                    <p>Посевы — это размещение рекламных постов в тематических каналах для привлечения подписчиков.</p>
+
+                    <h2>Как выбрать каналы</h2>
+                    <p>Критерии выбора: охват, вовлечённость, тематика, качество аудитории...</p>
+                `
+            },
+            {
+                id: 'article-3',
+                title: 'Воронки продаж в Telegram',
+                image: 'https://via.placeholder.com/400x500/2d3561/ffc365?text=Воронки',
+                content: `
+                    <h2>Структура воронки</h2>
+                    <p>Правильная воронка состоит из нескольких этапов: привлечение, прогрев, продажа, допродажа.</p>
+                `
+            },
+            {
+                id: 'article-4',
+                title: 'Аналитика канала: метрики',
+                image: 'https://via.placeholder.com/400x500/1f2544/ffc365?text=Аналитика',
+                content: `
+                    <h2>Ключевые метрики</h2>
+                    <p>Охват, просмотры, ER, CTR — разбираем, что важно отслеживать и как улучшать показатели.</p>
+                `
+            }
+        ];
+
+        // Данные для кейсов
+        const cases = [
+            {
+                id: 'case-1',
+                title: 'Кейс: 500K подписчиков за 3 месяца',
+                image: 'https://via.placeholder.com/400x500/2d3561/ffc365?text=Кейс+1',
+                content: `
+                    <h2>О проекте</h2>
+                    <p>Онлайн-школа по психологии. Задача: набрать аудиторию с нуля и запустить первый поток.</p>
+
+                    <h2>Стратегия</h2>
+                    <p>Использовали связку: посевы + Telegram Ads + контент-маркетинг.</p>
+
+                    <h2>Результаты</h2>
+                    <p>За 3 месяца: 500K подписчиков, стоимость подписчика 15₽, конверсия в продажу 2.3%.</p>
+                `
+            },
+            {
+                id: 'case-2',
+                title: 'Запуск онлайн-школы',
+                image: 'https://via.placeholder.com/400x500/1f2544/ffc365?text=Кейс+2',
+                content: `
+                    <h2>О проекте</h2>
+                    <p>Запуск образовательного проекта с нуля.</p>
+                `
+            },
+            {
+                id: 'case-3',
+                title: 'ROI 450% за месяц',
+                image: 'https://via.placeholder.com/400x500/2d3561/ffc365?text=Кейс+3',
+                content: `
+                    <h2>О проекте</h2>
+                    <p>E-commerce проект с продажей через Telegram Bot.</p>
+                `
+            },
+            {
+                id: 'case-4',
+                title: 'E-commerce в Telegram',
+                image: 'https://via.placeholder.com/400x500/1f2544/ffc365?text=Кейс+4',
+                content: `
+                    <h2>О проекте</h2>
+                    <p>Интернет-магазин электроники в Telegram.</p>
+                `
+            }
+        ];
+
+        function loadArticles() {
+            const container = document.getElementById('articles');
+            container.innerHTML = articles.map(article => `
+                <div class="card" onclick="openContent('${article.id}', 'article')">
+                    <img src="${article.image}" alt="${article.title}">
+                    <div class="card-overlay">
+                        <div class="card-title">${article.title}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadCases() {
+            const container = document.getElementById('cases');
+            container.innerHTML = cases.map(caseItem => `
+                <div class="card" onclick="openContent('${caseItem.id}', 'case')">
+                    <img src="${caseItem.image}" alt="${caseItem.title}">
+                    <div class="card-overlay">
+                        <div class="card-title">${caseItem.title}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openWorkshop() {
+            // ЗАМЕНИ НА СВОЮ ССЫЛКУ
+            const workshopUrl = 'https://t.me/your_workshop_link';
+            if (bridge && bridge.openLink) {
+                bridge.openLink(workshopUrl);
+            } else {
+                window.open(workshopUrl, '_blank');
+            }
+        }
+
+        function openContent(id, type) {
+            const data = type === 'article' ? articles : cases;
+            const item = data.find(i => i.id === id);
+
+            if (!item) return;
+
+            // Скрываем главную страницу
+            document.getElementById('home-page').classList.remove('active');
+
+            // Проверяем, существует ли уже страница
+            let contentPage = document.getElementById(id);
+
+            if (!contentPage) {
+                // Используем отдельную картинку для контента, если есть
+                const contentImage = item.imageContent || item.image;
+
+                // Создаём новую страницу
+                contentPage = document.createElement('div');
+                contentPage.id = id;
+                contentPage.className = 'page content-page';
+                contentPage.innerHTML = `
+                    <div class="container">
+                        <button class="back-button" onclick="goBack()">← Назад</button>
+                        <img src="${contentImage}" alt="${item.title}" class="content-image">
+                        <div class="content-header">
+                            <h1>${item.title}</h1>
+                        </div>
+                        <div class="content-body">
+                            ${item.content}
+                        </div>
+                    </div>
+                `;
+                document.getElementById('content-pages').appendChild(contentPage);
+            }
+
+            contentPage.classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function goBack() {
+            // Скрываем все страницы контента
+            document.querySelectorAll('.content-page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Показываем главную страницу
+            document.getElementById('home-page').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Запуск приложения
+        initApp();
+    </script>
+</body>
+</html>
