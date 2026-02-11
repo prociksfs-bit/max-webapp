@@ -28,26 +28,28 @@
 
         /* Баннер */
         .banner {
-            background: linear-gradient(135deg, #2d3561 0%, #1f2544 100%);
+            background: #000000;
             border-radius: 20px;
-            padding: 40px 25px;
+            padding: 0;
             text-align: center;
             margin-bottom: 30px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
         }
 
-        .banner h1 {
-            font-size: 28px;
-            margin-bottom: 15px;
-            font-weight: 700;
-            line-height: 1.2;
+        .banner-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 20px;
         }
 
-        .banner p {
-            font-size: 16px;
-            margin-bottom: 25px;
-            opacity: 0.9;
-            line-height: 1.5;
+        .banner-content {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            padding: 0 25px;
         }
 
         .cta-button {
@@ -237,12 +239,9 @@
 
         /* Адаптация для маленьких экранов (iPhone SE) */
         @media (max-width: 375px) {
-            .banner h1 {
-                font-size: 24px;
-            }
-
-            .banner p {
-                font-size: 14px;
+            .banner-content {
+                bottom: 20px;
+                padding: 0 15px;
             }
 
             .cta-button {
@@ -287,16 +286,9 @@
                 padding: 30px;
             }
 
-            .banner {
-                padding: 50px 35px;
-            }
-
-            .banner h1 {
-                font-size: 32px;
-            }
-
-            .banner p {
-                font-size: 18px;
+            .banner-content {
+                bottom: 40px;
+                padding: 0 35px;
             }
 
             .card {
@@ -311,18 +303,9 @@
 
         /* Адаптация для альбомной ориентации */
         @media (orientation: landscape) and (max-height: 500px) {
-            .banner {
-                padding: 25px 20px;
-            }
-
-            .banner h1 {
-                font-size: 22px;
-                margin-bottom: 10px;
-            }
-
-            .banner p {
-                font-size: 14px;
-                margin-bottom: 15px;
+            .banner-content {
+                bottom: 15px;
+                padding: 0 20px;
             }
 
             .cta-button {
@@ -342,9 +325,10 @@
         <div class="container">
             <!-- Баннер -->
             <div class="banner">
-                <h1>🚀 Воркшоп по Нейросетям</h1>
-                <p>Узнай, как использовать ChatGPT, Claude и другие AI для Telegram-маркетинга</p>
-                <button class="cta-button" onclick="openWorkshop()">Смотреть</button>
+                <img src="https://optim.tildacdn.com/tild3162-3439-4933-b839-353734373232/-/resize/886x/-/format/webp/________________-3.png.webp" alt="Воркшоп по Нейросетям" class="banner-image">
+                <div class="banner-content">
+                    <button class="cta-button" onclick="openWorkshop()">Смотреть</button>
+                </div>
             </div>
 
             <!-- Полезные статьи -->
@@ -534,8 +518,7 @@
         }
 
         function openWorkshop() {
-            // ЗАМЕНИ НА СВОЮ ССЫЛКУ
-            const workshopUrl = 'https://t.me/your_workshop_link';
+            const workshopUrl = 'https://kinescope.io/0BFbrvqUjD1Zh6VRWyaRbY';
             if (bridge && bridge.openLink) {
                 bridge.openLink(workshopUrl);
             } else {
