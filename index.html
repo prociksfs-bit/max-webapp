@@ -247,6 +247,18 @@
             font-weight: 700;
         }
 
+        .content-body a {
+            color: #ffc365;
+            text-decoration: underline;
+        }
+
+        .content-body img {
+            width: 100%;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1.5px solid #ffc365;
+        }
+
         /* Адаптация для маленьких экранов (iPhone SE) */
         @media (max-width: 375px) {
             .banner-content {
@@ -431,14 +443,76 @@
             },
             {
                 id: 'article-2',
-                title: 'Посевы в 2026: полный гайд',
-                image: null,
+                title: 'Как создать бота и приложение в MAX',
+                image: 'https://optim.tildacdn.com/tild6535-6234-4037-b435-656636373333/-/resize/400x/-/format/webp/___4.png.webp',
+                imageContent: 'https://leonardo3.osnova.io/6d75e193-0946-57ae-bd77-6a59dba820a7/-/scale_crop/1184x/-/format/webp/',
                 content: `
-                    <h2>Что такое посевы</h2>
-                    <p>Посевы — это размещение рекламных постов в тематических каналах для привлечения подписчиков.</p>
+                    <p><em>Важно: бота сейчас можно создать, если есть ИП или ООО. Если ИП нет, его можно оформить через банк за несколько секунд, они сами подадут документы, останется просто подождать и подписать документы с курьером. Налоговую форму ИП можно сделать НПД, чтобы не платить ежегодный страховой взнос.</em></p>
 
-                    <h2>Как выбрать каналы</h2>
-                    <p>Критерии выбора: охват, вовлечённость, тематика, качество аудитории...</p>
+                    <h2>Шаг №1. Авторизация в MAX</h2>
+                    <p>Нужно перейти на сайт: <a href="https://bid.max.ru/business" target="_blank">https://bid.max.ru/business</a>, и авторизоваться по основному номеру телефона (который к госуслугам привязан). После этого нужно будет ввести ИНН своего ИП или ООО.</p>
+                    <img src="https://leonardo3.osnova.io/81dd97a9-0bea-5b4d-ad50-5861f5522945/-/scale_crop/1184x/-/format/webp/" alt="Авторизация">
+
+                    <h2>Шаг №2. Верификация</h2>
+                    <p>После этого нужно перейти на страницу верификации: <a href="https://bid.max.ru/profile/verification" target="_blank">https://bid.max.ru/profile/verification</a>, выбираем удобный способ верификации:</p>
+                    <p>– через Госуслуги<br>
+                    – Аlfa ID<br>
+                    – Т-Business ID<br>
+                    – СберБизнес ID</p>
+                    <p>Верификация автоматическая, занимает ~до 10 минут</p>
+                    <img src="https://leonardo3.osnova.io/f0b8600c-5820-5a22-a2fa-03a5cf9e0071/-/scale_crop/1184x/-/format/webp/" alt="Верификация">
+
+                    <h2>Шаг №3. Создание бота</h2>
+                    <p>После этого откроется окно личного бизнес-профиля (<a href="https://business.max.ru/self/?#/services" target="_blank">https://business.max.ru/self/?#/services</a>), в котором нужно будет нажать в поле "Чат-бот и мини-приложение" кнопку "Создать".</p>
+                    <img src="https://leonardo3.osnova.io/12a9ee05-dc48-5c91-843e-d5c880a7df37/-/scale_crop/1184x/-/format/webp/" alt="Создание бота">
+
+                    <p>В открывшемся окне нужно будет добавить логотип и имя бота, свой телефон, а также сайт + краткое описание в свободной форме. После нажатия кнопки "Создать" бот уходит на модерацию.</p>
+                    <img src="https://leonardo3.osnova.io/3591d11d-6d04-50dd-af94-4c3fda534ba8/-/scale_crop/1184x/-/format/webp/" alt="Настройка бота">
+
+                    <p><strong>Где взять ссылку на бота:</strong> в личном бизнес-профиле нужно запросить QR-код нажав на соответствующую кнопку, в которой будет ссылка на бота.</p>
+                    <img src="https://leonardo3.osnova.io/7bd9cef9-2ada-59af-a8e1-eb6662421e3b/-/scale_crop/1184x/-/format/webp/" alt="QR-код">
+
+                    <h2>Шаг №4. Как настроить цепочку/воронку у бота</h2>
+                    <p><strong>Способ 1:</strong> Подключить к сервисам-конструкторам (я пользуюсь BotHelp). Нужно зайти в "Настройки" → "Каналы" → "Добавить канал" → Выбрать "MAX" и вставить скопированный токен из окна личного бизнес-профиля, раздела "Интеграция".</p>
+                    <img src="https://leonardo3.osnova.io/bb6e9b9d-d880-5bfc-b9f2-338dafb28b0b/-/scale_crop/1184x/-/format/webp/" alt="BotHelp">
+                    <p>Стоимость поддержки такого бота в районе 1600₽/месяц (можно делать рассылки, создавать несколько ботов за эту сумму).</p>
+
+                    <p><strong>Способ 2:</strong> При помощи нейросетей и облачного сервера. Этот способ позволит ПОЛНОСТЬЮ управлять ботом, а также подключать нейросети (ИИ-агентов) в своего бота.</p>
+
+                    <h2>Шаг №5. Настройка приложения</h2>
+                    <p><strong>Способ 1 (простой и платный):</strong> Создать сайт на Tilda (750₽/месяц), подключить домен (~200₽/год), и получившуюся ссылку вставить в "Настройки чат-бот и мини приложение".</p>
+
+                    <p><strong>Способ 2 (бесплатно):</strong> Использовать нейросети + GitHub Pages:</p>
+                    <p>1. Создать дизайн приложения (можно зарисовать на бумажке или описать нейросети)<br>
+                    2. Использовать промпт для создания кода<br>
+                    3. Загрузить файл Index.html на GitHub<br>
+                    4. Включить GitHub Pages<br>
+                    5. Получить ссылку с HTTPS</p>
+
+                    <img src="https://leonardo3.osnova.io/775189ff-7624-5916-9d94-2b53dad36e39/-/scale_crop/1184x/-/format/webp/" alt="GitHub создание">
+                    <img src="https://leonardo3.osnova.io/d2d61975-0f23-549a-8cf8-a24dadc40fe8/-/scale_crop/1184x/-/format/webp/" alt="GitHub загрузка">
+                    <img src="https://leonardo3.osnova.io/9c581bde-da66-555c-9861-451d6abd308f/-/scale_crop/1184x/-/format/webp/" alt="GitHub commit">
+                    <img src="https://leonardo3.osnova.io/53bb8b6e-67b5-52e9-8ba0-ea8f3f3ced78/-/scale_crop/1184x/-/format/webp/" alt="GitHub Pages">
+                    <img src="https://leonardo3.osnova.io/74195249-f907-516a-b129-b0911532481c/-/scale_crop/1184x/-/format/webp/" alt="Ссылка">
+
+                    <h2>Шаг №6. Добавить приложение в MAX</h2>
+                    <p>Переходим в личный бизнес-профиль → раздел "Чат-бот и мини-приложение", нажимаем "Настроить" → вставляем ссылку с GitHub в раздел "мини-приложение", выбираем кнопку и нажимаем "Сохранить".</p>
+                    <img src="https://leonardo3.osnova.io/edbb301d-36a5-5788-8bf1-dc05158892ca/-/scale_crop/1184x/-/format/webp/" alt="Добавление в MAX">
+
+                    <h2>Шаг №7. Как внести изменения в приложение</h2>
+                    <p>1. Вернуться на GitHub, в раздел Code<br>
+                    2. Нажать на файл Index.html<br>
+                    3. Нажать на значок карандаша "Edit this file"<br>
+                    4. Удалить старый код, вставить новый<br>
+                    5. Нажать "Commit Changes"<br>
+                    6. Обновление занимает ~2 минуты</p>
+
+                    <img src="https://leonardo3.osnova.io/7acfed72-0213-54f6-b540-89a7e3872129/-/scale_crop/1184x/-/format/webp/" alt="Редактирование">
+                    <img src="https://leonardo3.osnova.io/b14cbb01-57d8-5847-9dbc-e0320d615162/-/scale_crop/1184x/-/format/webp/" alt="Edit">
+                    <img src="https://leonardo3.osnova.io/4fdb4da2-6051-5c27-bc4c-c8a38875cf7a/-/scale_crop/1184x/-/format/webp/" alt="Commit">
+
+                    <p><strong>Было полезно?</strong><br>
+                    Подписывайтесь на <a href="https://t.me/+XII47UZuJStkYzli" target="_blank">телеграм канал</a> – в нём я выкладываю больше подобных полезных статей, видео с разными техническими моментами (телеграм, max, ВК, Яндекс и тд...), и как нейросети могут помочь разгрузить всю рутину с вас.</p>
                 `
             },
             {
